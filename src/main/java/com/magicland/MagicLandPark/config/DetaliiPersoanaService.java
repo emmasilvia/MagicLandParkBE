@@ -21,6 +21,7 @@ import java.util.Set;
 @Service
 public class  DetaliiPersoanaService implements UserDetailsService {
 
+    @Autowired
     private PersoanaRepository persoanaRepository;
 
     @Autowired

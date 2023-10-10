@@ -2,11 +2,22 @@ package com.magicland.MagicLandPark.controller.dto.persoana;
 
 public class PersoanaDTO {
 
+    private Long id;
     private String nume;
     private String prenume;
     private String email;
     private String password;
     private String tip;
+
+    public PersoanaDTO() {
+    }
+
+    public PersoanaDTO(Long id, String nume, String prenume, String email) {
+        this.id = id;
+        this.nume = nume;
+        this.prenume = prenume;
+        this.email = email;
+    }
 
     public String getNume() {
         return nume;
@@ -46,5 +57,13 @@ public class PersoanaDTO {
 
     public void setTip(String tip) {
         this.tip = tip;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

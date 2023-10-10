@@ -1,65 +1,55 @@
 package com.magicland.MagicLandPark.model;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "tichete")
+@Table(name = "tichete")
 public class Tichet {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private double tarif;
 
-    @Column(nullable = false)
-    @OneToMany
-    private List<Activitate_Parc> TipAcces;
+    @Column(name = "nr_bilet")
+    private Long nrBilet;
 
     @Column
-    private double valabilitate;
-
-    @Column(nullable = false)
-    private TipTichet tipTichet;
-
-    @Column(nullable = false)
-    private int CodBilet;
+    private Long codAbonament;
 
     @Column
-    private int DurataAbonament;
+    private int durataAbonament;
 
-    @Column(nullable = false)
-    private int CodAbonament;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "tichete_categoriiTichete", joinColumns = @JoinColumn(name = "tichet_id"), inverseJoinColumns = @JoinColumn(name = "categorie_tichet_id"))
+//    private Set<Categorie_Tichet> categorie_tichet;
 
+    @Column
+    private LocalDateTime valabilitate;
+
+    @Column
+    private Long stoc = 1000L;
 
     @ManyToOne
-    private Categorie_Varsta categorieVarsta;
-
-    @ManyToOne
-    @JoinColumn(name = "IdBon")
     private Bon bon;
 
-    private int stoc;
+    @Enumerated(value = EnumType.STRING)
+    private TipTichet tipTichet;
 
-    public int getStoc() {
-        return stoc;
+    @ManyToOne
+    @JoinColumn(name = "categorie_varsta_id") // Specify the join column
+    private Categorie_Tichet categorie_tichet;
+
+    public Tichet(){
+
     }
-
-    public void setStoc(int stoc) {
-        this.stoc = stoc;
-    }
-
-    public int getStocRezervat() {
-        return stocRezervat;
-    }
-
-    public void setStocRezervat(int stocRezervat) {
-        this.stocRezervat = stocRezervat;
-    }
-
-    private int stocRezervat;
-
 
     public Long getId() {
         return id;
@@ -69,28 +59,49 @@ public class Tichet {
         this.id = id;
     }
 
-    public double getTarif() {
-        return tarif;
+    public Categorie_Tichet getCategorieTichet() {
+        return categorie_tichet;
     }
 
-    public void setTarif(double tarif) {
-        this.tarif = tarif;
+    public void setCategorieTichet(Categorie_Tichet categorieTichet) {
+        this.categorie_tichet = categorieTichet;
     }
 
-    public List<Activitate_Parc> getTipAcces() {
-        return TipAcces;
+    public Long getNrBilet() {
+        return nrBilet;
     }
 
-    public void setTipAcces(List<Activitate_Parc> tipAcces) {
-        TipAcces = tipAcces;
+    public void setNrBilet(Long nrBilet) {
+        this.nrBilet = nrBilet;
     }
 
-    public double getValabilitate() {
+    public Long getCodAbonament() {
+        return codAbonament;
+    }
+
+    public void setCodAbonament(Long codAbonament) {
+        this.codAbonament = codAbonament;
+    }
+
+    public int getDurataAbonament() {
+        return durataAbonament;
+    }
+
+    public void setDurataAbonament(int durataAbonament) {
+        this.durataAbonament = durataAbonament;
+    }
+
+    public LocalDateTime getValabilitate() {
         return valabilitate;
     }
 
-    public void setValabilitate(double valabilitate) {
-        this.valabilitate = valabilitate;
+
+
+    @PrePersist
+    public void setValabilitate() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expirationDate = now.plusYears(1);
+        this.valabilitate = expirationDate;
     }
 
     public Bon getBon() {
@@ -101,43 +112,24 @@ public class Tichet {
         this.bon = bon;
     }
 
+    public Long getStoc() {
+        return stoc;
+    }
+
+    public void setStoc(Long stoc) {
+        this.stoc = stoc;
+    }
+
+    @Scheduled(cron = "0 0 0 * * *") // Run daily at midnight
+    public void resetStoc() {
+        this.stoc = 1000L; // Reset stock to 1000
+    }
+
     public TipTichet getTipTichet() {
         return tipTichet;
     }
 
     public void setTipTichet(TipTichet tipTichet) {
         this.tipTichet = tipTichet;
-    }
-
-    public int getCodBilet() {
-        return CodBilet;
-    }
-
-    public void setCodBilet(int codBilet) {
-        CodBilet = codBilet;
-    }
-
-    public int getDurataAbonament() {
-        return DurataAbonament;
-    }
-
-    public void setDurataAbonament(int durataAbonament) {
-        DurataAbonament = durataAbonament;
-    }
-
-    public int getCodAbonament() {
-        return CodAbonament;
-    }
-
-    public void setCodAbonament(int codAbonament) {
-        CodAbonament = codAbonament;
-    }
-
-    public Categorie_Varsta getCategorieVarsta() {
-        return categorieVarsta;
-    }
-
-    public void setCategorieVarsta(Categorie_Varsta categorieVarsta) {
-        this.categorieVarsta = categorieVarsta;
     }
 }

@@ -1,10 +1,10 @@
 package com.magicland.MagicLandPark.controller.dto.activitate_parc;
 
-import com.magicland.MagicLandPark.model.Animal;
-import com.magicland.MagicLandPark.model.Rezervare;
-import com.magicland.MagicLandPark.model.TipActivitate;
-import com.magicland.MagicLandPark.model.Zona;
+import com.magicland.MagicLandPark.model.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.io.File;
 import java.util.List;
 
 public class ActivitateRequestDto {
@@ -19,15 +19,17 @@ public class ActivitateRequestDto {
 
     private String program;
 
-    private String nivelDificultate;
+    private NivelDificultate nivelDificultate;
 
     private TipActivitate tipActivitate;
 
-    private List<Rezervare> rezervari;
+    private String imagine;
 
-    private List<Zona> zone;
+    private String zonaHarta;
 
     private List<Animal> animale;
+
+    private List<Rezervare> rezervari;
 
 
     public String getDenumire() {
@@ -70,11 +72,11 @@ public class ActivitateRequestDto {
         this.program = program;
     }
 
-    public String getNivelDificultate() {
+    public NivelDificultate getNivelDificultate() {
         return nivelDificultate;
     }
 
-    public void setNivelDificultate(String nivelDificultate) {
+    public void setNivelDificultate(NivelDificultate nivelDificultate) {
         this.nivelDificultate = nivelDificultate;
     }
 
@@ -86,20 +88,13 @@ public class ActivitateRequestDto {
         this.tipActivitate = tipActivitate;
     }
 
-    public List<Rezervare> getRezervari() {
-        return rezervari;
+
+    public String getZonaHarta() {
+        return zonaHarta;
     }
 
-    public void setRezervari(List<Rezervare> rezervari) {
-        this.rezervari = rezervari;
-    }
-
-    public List<Zona> getZone() {
-        return zone;
-    }
-
-    public void setZone(List<Zona> zone) {
-        this.zone = zone;
+    public void setZonaHarta(String zonaHarta) {
+        this.zonaHarta = zonaHarta;
     }
 
     public List<Animal> getAnimale() {
@@ -108,5 +103,21 @@ public class ActivitateRequestDto {
 
     public void setAnimale(List<Animal> animale) {
         this.animale = animale;
+    }
+
+    public List<Rezervare> getRezervari() {
+        return rezervari;
+    }
+
+    public void setRezervari(List<Rezervare> rezervari) {
+        this.rezervari = rezervari;
+    }
+
+    public String getImagine() {
+        return imagine;
+    }
+
+    public void setImagine(String imagine) {
+        this.imagine = imagine;
     }
 }

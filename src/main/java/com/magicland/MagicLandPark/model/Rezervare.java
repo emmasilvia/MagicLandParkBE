@@ -1,14 +1,18 @@
 package com.magicland.MagicLandPark.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "rezervari")
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"persoanaId", "dataVizita", "activitateId"})
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"persoana_id", "dataVizita", "activitate_id"})
 })
 public class Rezervare {
 
@@ -16,37 +20,25 @@ public class Rezervare {
     @GeneratedValue
     private Long id;
 
-//    @Column
-//    private List<TipRezervare> TipRezervare;
-
-    @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    @Column
+    @CreationTimestamp
     private LocalDateTime dataRezervare;
 
     @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime dataVizita;
 
-
-    @Column(nullable = false)
-    private int NrPersoane;
-
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "persoanaId", nullable = false)
-    private Persoana persoana;
-
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "activitateId", nullable = false)
-    private Activitate_Parc activitate_parc;
-
-
+    @Column
+    private int nrPersoane;
     @ManyToOne
-    private Categorie_Varsta categorie_varsta;
+    private Persoana persoana;
 
     @ManyToOne
     private Bon bon;
+
+    @ManyToOne
+    private Activitate_Parc activitate;
+
 
     public Long getId() {
         return id;
@@ -55,14 +47,6 @@ public class Rezervare {
     public void setId(Long id) {
         this.id = id;
     }
-
-//    public List<TipRezervare> getTipRezervare() {
-//        return TipRezervare;
-//    }
-//
-//    public void setTipRezervare(List<TipRezervare> tipRezervare) {
-//        TipRezervare = tipRezervare;
-//    }
 
     public LocalDateTime getDataRezervare() {
         return dataRezervare;
@@ -77,20 +61,11 @@ public class Rezervare {
     }
 
     public void setDataVizita(LocalDateTime dataVizita) {
-        if(dataVizita.isBefore(dataRezervare)){
-            throw new IllegalArgumentException("Data vizitei trebuie aleasa dupa data rezervarii");
-        }
+//        if(dataVizita.isBefore(this.dataRezervare)){
+//            throw new IllegalArgumentException("Data vizitei trebuie aleasa dupa data rezervarii");
+//        }
         this.dataVizita = dataVizita;
     }
-
-    public int getNrPersoane() {
-        return NrPersoane;
-    }
-
-    public void setNrPersoane(int nrPersoane) {
-        NrPersoane = nrPersoane;
-    }
-
     public Persoana getPersoana() {
         return persoana;
     }
@@ -99,12 +74,12 @@ public class Rezervare {
         this.persoana = persoana;
     }
 
-    public Activitate_Parc getActivitate_parc() {
-        return activitate_parc;
+    public int getNrPersoane() {
+        return nrPersoane;
     }
 
-    public void setActivitate_parc(Activitate_Parc activitate_parc) {
-        this.activitate_parc = activitate_parc;
+    public void setNrPersoane(int nrPersoane) {
+        this.nrPersoane = nrPersoane;
     }
 
     public Bon getBon() {
@@ -112,17 +87,14 @@ public class Rezervare {
     }
 
     public void setBon(Bon bon) {
-        if (bon.getDataBon().isBefore(dataRezervare)){
-            throw new IllegalArgumentException("Bonul nu se poate emite inainte de data la care faceti rezervarea");
-        }
         this.bon = bon;
     }
 
-    public Categorie_Varsta getCategorie_varsta() {
-        return categorie_varsta;
+    public Activitate_Parc getActivitate() {
+        return activitate;
     }
 
-    public void setCategorie_varsta(Categorie_Varsta categorie_varsta) {
-        this.categorie_varsta = categorie_varsta;
+    public void setActivitate(Activitate_Parc activitate) {
+        this.activitate = activitate;
     }
 }

@@ -1,9 +1,12 @@
 package com.magicland.MagicLandPark.model;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "activitati_parc")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activitate_Parc {
 
     @Id
@@ -25,19 +28,21 @@ public class Activitate_Parc {
     @Column(nullable = false)
     private String program;
 
-    @Column
-    private String nivelDificultate;
+    @Enumerated(value = EnumType.STRING)
+    private NivelDificultate nivelDificultate;
 
-    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private TipActivitate tipActivitate;
 
+    private String imagine;
 
     @OneToMany
     private List<Rezervare> rezervari;
 
 
-    @OneToMany
-    private List<Zona> zone;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "activitati_zone", joinColumns = @JoinColumn(name = "activitate_id"), inverseJoinColumns = @JoinColumn(name = "harta_id"))
+    private Set<Harta> zonaHarta;
 
 
     @OneToMany
@@ -92,11 +97,11 @@ public class Activitate_Parc {
         this.program = program;
     }
 
-    public String getNivelDificultate() {
+    public NivelDificultate getNivelDificultate() {
         return nivelDificultate;
     }
 
-    public void setNivelDificultate(String nivelDificultate) {
+    public void setNivelDificultate(NivelDificultate nivelDificultate) {
         this.nivelDificultate = nivelDificultate;
     }
 
@@ -116,12 +121,12 @@ public class Activitate_Parc {
         this.rezervari = rezervari;
     }
 
-    public List<Zona> getZone() {
-        return zone;
+    public Set<Harta> getZonaHarta() {
+        return zonaHarta;
     }
 
-    public void setZone(List<Zona> zone) {
-        this.zone = zone;
+    public void setZonaHarta(Set<Harta> zonaHarta) {
+        this.zonaHarta = zonaHarta;
     }
 
     public List<Animal> getAnimale() {
@@ -130,5 +135,13 @@ public class Activitate_Parc {
 
     public void setAnimale(List<Animal> animale) {
         this.animale = animale;
+    }
+
+    public String getImagine() {
+        return imagine;
+    }
+
+    public void setImagine(String imagine) {
+        this.imagine = imagine;
     }
 }

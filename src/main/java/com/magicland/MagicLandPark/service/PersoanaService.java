@@ -8,4 +8,12 @@ public interface PersoanaService {
 
     Persoana create(Persoana persoana);
     Persoana findByEmail(String email);
+
+    boolean changePassword(String username, String oldPassword, String newPassword);
+
+    void updatePassword(Persoana persoana, String newPassword);
+
+    Persoana findByNume(String nume);
+
+//    Persoana findById(Long id);
 }

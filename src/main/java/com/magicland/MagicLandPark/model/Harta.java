@@ -10,8 +10,8 @@ public class Harta {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private List<Zona> zone;
+    private String denumire;
+
 
     public Long getId() {
         return id;
@@ -21,11 +21,12 @@ public class Harta {
         this.id = id;
     }
 
-    public List<Zona> getZone() {
-        return zone;
+    public String getDenumire() {
+        return denumire;
     }
 
-    public void setZone(List<Zona> zone) {
-        this.zone = zone;
+    public void setDenumire(String denumire) {
+        this.denumire = denumire;
     }
+
 }

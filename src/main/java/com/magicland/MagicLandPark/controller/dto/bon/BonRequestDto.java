@@ -6,14 +6,17 @@ import java.util.List;
 
 public class BonRequestDto {
 
-    private int nrBon;
+    private Long id;
+    private String nrBon;
     private LocalDateTime dataBon;
 
-    public int getNrBon() {
+
+
+    public String getNrBon() {
         return nrBon;
     }
 
-    public void setNrBon(int nrBon) {
+    public void setNrBon(String nrBon) {
         this.nrBon = nrBon;
     }
 
@@ -23,5 +26,13 @@ public class BonRequestDto {
 
     public void setDataBon(LocalDateTime dataBon) {
         this.dataBon = dataBon;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

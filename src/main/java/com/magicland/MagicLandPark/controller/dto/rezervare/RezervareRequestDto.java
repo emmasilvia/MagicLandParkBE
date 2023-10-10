@@ -1,20 +1,27 @@
 package com.magicland.MagicLandPark.controller.dto.rezervare;
 
-import com.magicland.MagicLandPark.model.Activitate_Parc;
-import com.magicland.MagicLandPark.model.Categorie_Varsta;
+import com.magicland.MagicLandPark.controller.dto.bon.BonRequestDto;
+import com.magicland.MagicLandPark.model.Bon;
 import com.magicland.MagicLandPark.model.Persoana;
+import com.magicland.MagicLandPark.model.Tichet;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
 public class RezervareRequestDto {
 
+    private Long id;
+
     private LocalDateTime dataRezervare;
     private LocalDateTime dataVizita;
+
+    private String persoana;
+
     private int nrPersoane;
-    private Persoana email_persoana;
-    private Activitate_Parc denumire_activitate;
-    private Categorie_Varsta categorie_varsta;
+
+    private BonRequestDto bon;
+
+    private Long activitateId;
 
     public LocalDateTime getDataRezervare() {
         return dataRezervare;
@@ -32,6 +39,15 @@ public class RezervareRequestDto {
         this.dataVizita = dataVizita;
     }
 
+
+    public String getPersoana() {
+        return persoana;
+    }
+
+    public void setPersoana(String persoana) {
+        this.persoana = persoana;
+    }
+
     public int getNrPersoane() {
         return nrPersoane;
     }
@@ -40,27 +56,27 @@ public class RezervareRequestDto {
         this.nrPersoane = nrPersoane;
     }
 
-    public Persoana getEmail_persoana() {
-        return email_persoana;
+    public BonRequestDto getBon() {
+        return bon;
     }
 
-    public void setEmail_persoana(Persoana email_persoana) {
-        this.email_persoana = email_persoana;
+    public void setBon(BonRequestDto bon) {
+        this.bon = bon;
     }
 
-    public Activitate_Parc getDenumire_activitate() {
-        return denumire_activitate;
+    public Long getId() {
+        return id;
     }
 
-    public void setDenumire_activitate(Activitate_Parc denumire_activitate) {
-        this.denumire_activitate = denumire_activitate;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Categorie_Varsta getCategorie_varsta() {
-        return categorie_varsta;
+    public Long getActivitateId() {
+        return activitateId;
     }
 
-    public void setCategorie_varsta(Categorie_Varsta categorie_varsta) {
-        this.categorie_varsta = categorie_varsta;
+    public void setActivitateId(Long activitateId) {
+        this.activitateId = activitateId;
     }
 }

@@ -28,7 +28,15 @@ public class Persoana {
     private Set<Tip> tip;
 
     @OneToMany
-    private List<Rezervare> rezervari;
+    private List<Rezervare> rezervare;
+
+    public Persoana(){
+
+    }
+
+    public Persoana(Long id){
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -79,10 +87,10 @@ public class Persoana {
     }
 
     public List<Rezervare> getRezervari() {
-        return rezervari;
+        return rezervare;
     }
 
     public void setRezervari(List<Rezervare> rezervari) {
-        this.rezervari = rezervari;
+        this.rezervare = rezervari;
     }
 }

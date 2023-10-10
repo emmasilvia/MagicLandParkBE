@@ -1,8 +1,10 @@
 package com.magicland.MagicLandPark.service;
 
 import com.magicland.MagicLandPark.model.Activitate_Parc;
+import com.magicland.MagicLandPark.model.Harta;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Map;
 
 public interface Activitate_ParcService {
@@ -17,5 +19,10 @@ public interface Activitate_ParcService {
 
     Page<Activitate_Parc> searchActivities(Map<String, String> params);
 
+//    List<Activitate_Parc> findAll();
+
     void delete(Long id);
+
+    List<Activitate_Parc> findAll();
+    List<Activitate_Parc> findByZonaHarta(Harta harta);
 }

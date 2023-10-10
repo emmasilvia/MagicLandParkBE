@@ -4,7 +4,6 @@ public class ActivitateResponseDto extends ActivitateRequestDto{
 
     private Long id;
 
-    private String tipActivitateNume;
 
     public Long getId() {
         return id;
@@ -14,11 +13,4 @@ public class ActivitateResponseDto extends ActivitateRequestDto{
         this.id = id;
     }
 
-    public String getTipActivitateNume() {
-        return tipActivitateNume;
-    }
-
-    public void setTipActivitateNume(String tipActivitateNume) {
-        this.tipActivitateNume = tipActivitateNume;
-    }
 }
